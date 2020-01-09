@@ -1,0 +1,6 @@
+[submodule "Engine"]
+	path = Engine
+	url = git@github.com:Podcrash/Engine.git
+[submodule "Conquest"]
+	path = Conquest
+	url = git@github.com:Podcrash/Conquest.git
