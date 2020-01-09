@@ -4,7 +4,7 @@ TODO: Finish this.
 # Cloning this project
 To clone this project and get all of its submodules:
 ```bash
-git clone --recurse-submodules git@ccl.pdcl.club:server-project/server.git
+git clone --recurse-submodules git@github.com:Podcrash/DomusInvictus.git
 ```
 
 # Compiling
