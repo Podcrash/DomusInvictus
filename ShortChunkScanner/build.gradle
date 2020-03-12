@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+version 'unspecified'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly fileTree("../libs")
+    implementation project(path: ":Engine")
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+task spigot(dependsOn: jar) {
+
+}

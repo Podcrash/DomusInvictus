@@ -1,0 +1,12 @@
+name: ShortChunkScanner
+main: me.raindance.chunk.ShortChunkScanner
+version: 2.2
+author: RainDanceMC
+
+softdepend: [ProtocolLib, PodcrashAPI, SlimeWorldManager]
+commands:
+  scan:
+    description: Scan the world maps to put onto games!
+    usage: /scan <mode>
+    permission: shortchunkscanner.scan
+    permission-message: you need op.

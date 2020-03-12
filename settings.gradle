@@ -13,3 +13,6 @@ include 'Engine'
 include 'lobbyplugin'
 //include 'anti-cheat'
 //include 'turf-wars'
+include 'ShortChunkScanner'
+include 'Daydream'
+
