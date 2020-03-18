@@ -10,3 +10,7 @@ commands:
     usage: /scan <mode>
     permission: shortchunkscanner.scan
     permission-message: you need op.
+  deletecache:
+    description: after running /scan, delete all the datapoints
+    permission: shortchunkscanner.deletecache
+    permission-message: you need op.

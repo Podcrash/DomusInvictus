@@ -1,5 +1,6 @@
 package me.raindance.chunk;
 
+import me.raindance.chunk.commands.CacheDeleteCommand;
 import me.raindance.chunk.commands.ScanCommand;
 import me.raindance.chunk.listeners.CustomBlockListener;
 import me.raindance.chunk.listeners.FinishScanListener;
@@ -26,6 +27,7 @@ public class ShortChunkScanner extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new FinishScanListener(), this);
         Bukkit.getPluginManager().registerEvents(new CustomBlockListener(), this);
         getCommand("scan").setExecutor(new ScanCommand());
+        getCommand("deletecache").setExecutor(new CacheDeleteCommand());
     }
 
     @Override

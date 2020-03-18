@@ -16,8 +16,8 @@ public class ScanCommand implements CommandExecutor {
             return true;
         }
         World world = ((Player) commandSender).getWorld();
-        String mode = args[0];
         if(args.length == 1) {
+            String mode = args[0];
             WorldScanner.scanWorldSync(mode, world);
             return true;
         }

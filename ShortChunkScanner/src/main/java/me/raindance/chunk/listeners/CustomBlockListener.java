@@ -4,6 +4,7 @@ import me.raindance.chunk.ShortChunkScanner;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -28,8 +29,7 @@ public class CustomBlockListener implements Listener {
         double z = Double.parseDouble(sign.getLine(2));
 
         Vector vector = new Vector(x, y, z);
-        ShortChunkScanner.getInstance().getLogger().info(vector.toString());
-        cooldown.put(event.getPlayer().getName(), System.currentTimeMillis() + 5000L);
+        cooldown.put(event.getPlayer().getName(), System.currentTimeMillis() + 1500L);
         event.getPlayer().setVelocity(vector);
     }
 }

@@ -3,6 +3,7 @@ package me.raindance.chunk.scanners;
 import com.podcrash.api.db.pojos.PojoHelper;
 import com.podcrash.api.db.pojos.map.BaseMap;
 import com.podcrash.api.db.pojos.map.Point;
+import com.podcrash.api.mc.world.BlockUtil;
 import me.raindance.chunk.WorldScanner;
 import me.raindance.chunk.events.BlockScanEvent;
 import org.bukkit.*;
@@ -16,12 +17,9 @@ import org.bukkit.material.Wool;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class BaseWorldScanner implements Listener {
-
     @EventHandler
     public void scanner(BlockScanEvent event) {
         Block block = event.getBlock();
@@ -49,9 +47,22 @@ public abstract class BaseWorldScanner implements Listener {
     protected void worldBroadcast(World world, String msg) {
         for(Player player : world.getPlayers()) player.sendMessage(msg);
     }
+
+    protected void processMapName(World world, Block block, BaseMap map) {
+        if(!BlockUtil.isSign(block)) return;
+        Sign signState = (Sign) block.getState();
+        if(!signState.getLine(0).contains("DATA")) return;
+        String name = signState.getLine(1);
+        map.setName(name);
+        worldBroadcast(world, "Found the name of the map: " + name);
+
+        put(world.getName(), map);
+    }
+
     protected void processSpawn(World world, Block block, BaseMap map) {
         if(block.getType() != Material.WOOL) return;
-        if(block.getRelative(BlockFace.UP).getType() != Material.STONE_PLATE) return;
+        Block plate = block.getRelative(BlockFace.UP);
+        if(plate.getType() != Material.STONE_PLATE) return;
 
         Location loc = block.getLocation();
         //we add 0.5 because block coords return whole numbers
@@ -67,6 +78,7 @@ public abstract class BaseWorldScanner implements Listener {
         map.getSpawns().put(woolData.getColor().name(), points);
         worldBroadcast(world, ChatColor.GRAY + "Scanner> Loaded a " + color + woolData.getColor().name() + " spawn at " + point);
         put(world.getName(), map);
+        WorldScanner.addToDeleteCache(plate, block);
     }
 
     protected void processAuthor(World world, Block block, BaseMap map) {
@@ -85,10 +97,13 @@ public abstract class BaseWorldScanner implements Listener {
 
     protected void processSpectatorSpawn(World world, Block block, BaseMap map) {
         if(block.getType() != Material.LAPIS_BLOCK) return;
-        if(block.getRelative(BlockFace.UP).getType() != Material.STONE_PLATE) return;
+        Block plate = block.getRelative(BlockFace.UP);
+        if(plate.getType() != Material.STONE_PLATE) return;
         Point point = PojoHelper.convertVector2Point(block.getLocation().toVector());
         map.setDefaultSpawn(point);
-        worldBroadcast(world, ChatColor.GRAY + "Scanner> Found spectator spawn @" + point);
+        worldBroadcast(world, ChatColor.GRAY + "Scanner> Found spectator spawn @" + ChatColor.DARK_BLUE + point);
         put(world.getName(), map);
+
+        WorldScanner.addToDeleteCache(plate, block);
     }
 }
