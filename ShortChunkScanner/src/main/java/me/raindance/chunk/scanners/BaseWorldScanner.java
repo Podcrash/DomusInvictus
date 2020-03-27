@@ -1,8 +1,7 @@
 package me.raindance.chunk.scanners;
 
 import com.podcrash.api.db.pojos.PojoHelper;
-import com.podcrash.api.db.pojos.map.BaseMap;
-import com.podcrash.api.db.pojos.map.Point;
+import com.podcrash.api.db.pojos.map.*;
 import com.podcrash.api.mc.world.BlockUtil;
 import me.raindance.chunk.WorldScanner;
 import me.raindance.chunk.events.BlockScanEvent;
@@ -16,16 +15,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.material.Wool;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class BaseWorldScanner implements Listener {
+    private String mode;
+    public BaseWorldScanner(String mode) {
+        this.mode = mode;
+    }
+
     @EventHandler
     public void scanner(BlockScanEvent event) {
+        String mode = event.getGamemode();
+        if(!mode.equalsIgnoreCase(this.mode)) return;
         Block block = event.getBlock();
         Chunk chunk = event.getChunk();
         Location location = event.getBlock().getLocation();
-        String mode = event.getGamemode();
         World world = event.getWorld();
 
         scan(location, block, chunk, world, mode);
@@ -59,7 +63,7 @@ public abstract class BaseWorldScanner implements Listener {
         put(world.getName(), map);
     }
 
-    protected void processSpawn(World world, Block block, BaseMap map) {
+    protected void processSpawn(World world, Block block, GameMap map) {
         if(block.getType() != Material.WOOL) return;
         Block plate = block.getRelative(BlockFace.UP);
         if(plate.getType() != Material.STONE_PLATE) return;
@@ -105,5 +109,73 @@ public abstract class BaseWorldScanner implements Listener {
         put(world.getName(), map);
 
         WorldScanner.addToDeleteCache(plate, block);
+    }
+
+
+    private final Set<Material> validExtra = new HashSet<>(Arrays.asList(Material.SLIME_BLOCK, Material.COMMAND));
+    protected void processExtraneous(World world, Block block, BaseMap map) {
+        Block signBlock = block.getRelative(BlockFace.UP);
+        if(!BlockUtil.isSign(signBlock)) return;
+        if(!validExtra.contains(block.getType()))
+            return;
+        Sign sign = (Sign) signBlock.getState();
+
+        List<Point2Point> pointMap;
+        ChatColor color;
+
+        Point dataPoint = new Point();
+        double dataX = Double.parseDouble(sign.getLine(0));
+        double dataY = Double.parseDouble(sign.getLine(1));
+        double dataZ = Double.parseDouble(sign.getLine(2));
+
+        Point point = PojoHelper.convertVector2Point(block.getLocation().toVector().add(new Vector(0.5, 0, 0.5)));
+
+        Point2Point point2Point = new Point2Point();
+        point2Point.setPoint1(point);
+        switch (block.getType()) {
+            case SLIME_BLOCK:
+                pointMap = map.getLaunchPads();
+                color = ChatColor.DARK_GREEN;
+                break;
+            case COMMAND:
+                pointMap = map.getTeleportPads();
+                color = ChatColor.LIGHT_PURPLE;
+                dataX += 0.5D;
+                dataZ += 0.5D;
+                Block block1 = world.getBlockAt(new Location(world, dataX, dataY, dataZ));
+                if(block1.getType() != Material.COMMAND) {
+                    worldBroadcast(world, ChatColor.GRAY + "The corresponding teleport pad at " + point + "does not correlate to the point at: " + dataPoint);
+                    return;
+                }else if(compare(pointMap, point2Point)) return;
+                break;
+            default:
+                return;
+        }
+
+        dataPoint.setX(dataX);
+        dataPoint.setY(dataY);
+        dataPoint.setZ(dataZ);
+
+        point2Point.setPoint2(dataPoint);
+
+        worldBroadcast(world, ChatColor.GRAY + "Scanner> Found a " + color + block.getType().name() + ChatColor.GRAY + " @" + point + " that points to " + dataPoint);
+        pointMap.add(point2Point);
+
+        put(world.getName(), map);
+        WorldScanner.addToDeleteCache(signBlock);
+    }
+
+    /**
+     * This is to avoid storing duplicate data.
+     * @param list
+     * @param data
+     * @return
+     */
+    private boolean compare(List<Point2Point> list, Point2Point data) {
+        for(Point2Point po : list) {
+            if(po.getPoint1().equals(data.getPoint2()) && po.getPoint2().equals(data.getPoint1()))
+                return true;
+        }
+        return false;
     }
 }

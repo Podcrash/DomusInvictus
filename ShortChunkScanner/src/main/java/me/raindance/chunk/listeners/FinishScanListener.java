@@ -3,6 +3,7 @@ package me.raindance.chunk.listeners;
 import com.podcrash.api.db.TableOrganizer;
 import com.podcrash.api.db.pojos.map.BaseMap;
 import com.podcrash.api.db.pojos.map.ConquestMap;
+import com.podcrash.api.db.pojos.map.GameMap;
 import com.podcrash.api.db.tables.DataTableType;
 import com.podcrash.api.db.tables.MapTable;
 import me.raindance.chunk.ShortChunkScanner;
@@ -26,6 +27,9 @@ public class FinishScanListener implements Listener {
         switch (e.getGamemode().toLowerCase()) {
             case "conquest":
                 table.saveMetadataAsync((ConquestMap) map, ConquestMap.class);
+                break;
+            case "regular":
+                table.saveMetadataAsync(map, BaseMap.class);
                 break;
             default:
                 throw new IllegalStateException("uhhh");
