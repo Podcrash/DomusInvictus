@@ -16,6 +16,7 @@ public class FinishScanListener implements Listener {
     @EventHandler
     public void finish(ScanFinishEvent e) {
         BaseMap map = WorldScanner.get(e.getWorld().getName());
+        if(map.getName() == null || map.getName().equalsIgnoreCase("null")) return;
         map.setGamemode(e.getGamemode());
         e.getWorld().getPlayers().forEach(player -> {
             player.sendMessage("Scanning of world " + e.getWorld().getName() + " is finished!\n"
