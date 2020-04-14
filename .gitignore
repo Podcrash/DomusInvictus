@@ -3,8 +3,9 @@
 .vscode
 .project
 .settings/
-/build/
+*/build/*
 /build/generated-src
+
 /out
 
 # Ignore Gradle GUI config
