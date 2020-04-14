@@ -116,17 +116,21 @@ public abstract class BaseWorldScanner implements Listener {
     protected void processExtraneous(World world, Block block, BaseMap map) {
         Block signBlock = block.getRelative(BlockFace.UP);
         if(!BlockUtil.isSign(signBlock)) return;
-        if(!validExtra.contains(block.getType()))
-            return;
+        if(!validExtra.contains(block.getType())) return;
         Sign sign = (Sign) signBlock.getState();
 
         List<Point2Point> pointMap;
         ChatColor color;
 
         Point dataPoint = new Point();
-        double dataX = Double.parseDouble(sign.getLine(0));
-        double dataY = Double.parseDouble(sign.getLine(1));
-        double dataZ = Double.parseDouble(sign.getLine(2));
+        double dataX, dataY, dataZ;
+        try {
+            dataX = Double.parseDouble(sign.getLine(0));
+            dataY = Double.parseDouble(sign.getLine(1));
+            dataZ = Double.parseDouble(sign.getLine(2));
+        }catch (NumberFormatException e) {
+            return;
+        }
 
         Point point = PojoHelper.convertVector2Point(block.getLocation().toVector().add(new Vector(0.5, 0, 0.5)));
 

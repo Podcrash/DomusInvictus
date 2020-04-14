@@ -12,7 +12,10 @@ repositories {
 
 dependencies {
     compileOnly fileTree("../libs")
-    implementation project(path: ":Engine")
+
+    implementation project(path: ":Engine:DBEngine")
+    implementation project(path: ":Engine:MCEngine")
+
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 

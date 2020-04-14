@@ -9,7 +9,8 @@
 
 rootProject.name = 'Podcrash'
 include 'Conquest'
-include 'Engine'
+include 'Engine:DBEngine'
+include 'Engine:MCEngine'
 include 'lobbyplugin'
 //include 'anti-cheat'
 //include 'turf-wars'
