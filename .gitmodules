@@ -4,3 +4,6 @@
 [submodule "Conquest"]
 	path = Conquest
 	url = git@github.com:Podcrash/Conquest.git
+[submodule "discord-bot"]
+	path = discord-bot
+	url = https://github.com/Podcrash/discord-bot
