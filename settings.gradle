@@ -16,4 +16,5 @@ include 'lobbyplugin'
 //include 'turf-wars'
 include 'ShortChunkScanner'
 include 'Daydream'
+include 'discord-bot'
 
