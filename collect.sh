@@ -19,14 +19,16 @@ target="jars/$type/"
 
 ./gradlew $type
 
-for d in */ ; do
-	file=./$d"build.gradle"
+recievers=("Conquest" "ShortChunkScanner" "Engine/MCEngine")
+for d in ${recievers[@]} ; do
+	file=./$d"/build.gradle"
+	echo "$file"
 	if [ -e "$file" ]; then
-		builddir="$d""build/libs"
+		builddir="$d""/build/libs"
 		#echo "$builddir"
 		for f in ./$builddir/*.jar ; do
 			echo "Moving $f to $target"
-			`mv $f $target`
+			`cp $f $target`
 		done
 	fi
 done
