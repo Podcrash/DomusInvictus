@@ -11,7 +11,7 @@ chmod +x ./gradlew'''
 
     stage('Archive') {
       steps {
-        archiveArtifacts '*.jar'
+        archiveArtifacts 'libs/*.jar'
       }
     }
 
