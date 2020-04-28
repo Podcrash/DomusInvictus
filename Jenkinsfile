@@ -3,8 +3,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'chmod +x ./collect.sh'
-        sh './collect.sh'
+        sh '''chmod +x ./collect.sh
+chmod +x ./gradlew'''
+        sh './collect.sh spigot'
       }
     }
 
