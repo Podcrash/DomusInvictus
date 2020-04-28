@@ -1,0 +1,6 @@
+name: Riot
+main: me.raindance.riot.Riot
+version: 0.1
+author: RainDanceMC
+
+softdepend: [ProtocolLib, PodcrashAPI]

@@ -2,7 +2,7 @@ package me.raindance.chunk.scanners;
 
 import com.podcrash.api.db.pojos.PojoHelper;
 import com.podcrash.api.db.pojos.map.*;
-import com.podcrash.api.mc.world.BlockUtil;
+import com.podcrash.api.world.BlockUtil;
 import me.raindance.chunk.WorldScanner;
 import me.raindance.chunk.events.BlockScanEvent;
 import org.bukkit.*;

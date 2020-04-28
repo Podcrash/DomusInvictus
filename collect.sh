@@ -19,7 +19,7 @@ target="jars/$type/"
 
 ./gradlew $type
 
-recievers=("Conquest" "ShortChunkScanner" "Engine/MCEngine")
+recievers=("Conquest" "ShortChunkScanner" "Engine/MCEngine" "RIOT" "Islands")
 for d in ${recievers[@]} ; do
 	file=./$d"/build.gradle"
 	echo "$file"

@@ -14,6 +14,8 @@ allprojects {
         maven { url 'https://repo.glaremasters.me/repository/concuncan/'}
         maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots"}
         maven { url "https://hub.spigotmc.org/nexus/content/repositories/releases"}
+        maven { url "http://ci.nametagedit.com/plugin/repository/everything/" }
+        maven { url 'https://jitpack.io' }
     }
 
 }

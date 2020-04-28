@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+version 'unspecified'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly fileTree("../libs")
+
+    implementation project(path: ":Engine:MCEngine")
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    testImplementation 'org.bukkit:bukkit:1.8.8-R0.1-SNAPSHOT'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.21'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.1'
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.5.1"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.5.1"
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
+    //implementation 'com.comphenix.protocol:ProtocolLib:4.4.0'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty "lobby.code", "dom1234132"
+
+    testLogging.showStandardStreams true
+}
+
+task spigot(dependsOn: jar) {
+
+}

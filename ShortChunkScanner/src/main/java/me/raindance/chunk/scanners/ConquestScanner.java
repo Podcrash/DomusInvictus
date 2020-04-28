@@ -2,7 +2,6 @@ package me.raindance.chunk.scanners;
 
 import com.podcrash.api.db.pojos.PojoHelper;
 import com.podcrash.api.db.pojos.map.*;
-import com.podcrash.api.mc.world.BlockUtil;
 import me.raindance.chunk.WorldScanner;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -10,10 +9,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.util.Vector;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ConquestScanner extends BaseWorldScanner {
     public ConquestScanner() {

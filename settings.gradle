@@ -17,4 +17,8 @@ include 'lobbyplugin'
 include 'ShortChunkScanner'
 include 'Daydream'
 include 'discord-bot'
+include 'RIOT'
+include 'Engine:PacketWrapper'
+include 'Islands'
+findProject(':Engine:PacketWrapper')?.name = 'PacketWrapper'
 

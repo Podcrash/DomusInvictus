@@ -7,3 +7,6 @@
 [submodule "discord-bot"]
 	path = discord-bot
 	url = https://github.com/Podcrash/discord-bot
+[submodule "Islands"]
+	path = Islands
+	url = git@github.com:Podcrash/Islands.git
