@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh '''chmod +x ./collect.sh
 chmod +x ./gradlew'''
-        sh './collect.sh spigot'
+        sh 'bash collect.sh spigot'
       }
     }
 
