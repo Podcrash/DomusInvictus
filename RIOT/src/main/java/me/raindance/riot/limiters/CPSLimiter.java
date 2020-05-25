@@ -2,6 +2,8 @@ package me.raindance.riot;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.*;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.packetwrapper.abstractpackets.WrapperPlayClientUseEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -55,6 +57,8 @@ public class CPSLimiter extends PacketAdapter {
     @Override
     public void onPacketReceiving(PacketEvent packetEvent) {
         if (packetEvent.getPacketType() != PacketType.Play.Client.USE_ENTITY)
+            return;
+        if (packetEvent.getPacket().getEntityUseActions().read(0) != EnumWrappers.EntityUseAction.ATTACK)
             return;
         Player player = packetEvent.getPlayer();
         String name = player.getName();

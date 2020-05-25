@@ -3,6 +3,7 @@ package me.raindance.chunk.scanners;
 import com.podcrash.api.db.pojos.PojoHelper;
 import com.podcrash.api.db.pojos.map.*;
 import me.raindance.chunk.WorldScanner;
+import me.raindance.chunk.annotations.Scannable;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -11,7 +12,7 @@ import org.bukkit.util.Vector;
 
 import java.util.List;
 
-public class ConquestScanner extends BaseWorldScanner {
+public class ConquestScanner extends BaseWorldScanner<ConquestMap> {
     public ConquestScanner() {
         super("conquest");
     }
@@ -30,13 +31,14 @@ public class ConquestScanner extends BaseWorldScanner {
         processExtraneous(world, block, map);
     }
 
-    public BaseMap setUp(String worldName) {
+    public ConquestMap setUp(String worldName) {
         ConquestMap map = new ConquestMap();
 
         put(worldName, map);
         return map;
     }
 
+    @Scannable
     private void processItemObjectives(World world, Block block, ConquestMap map) {
         Block plate = block.getRelative(BlockFace.UP);
         if(plate.getType() != Material.STONE_PLATE) return;
@@ -69,6 +71,8 @@ public class ConquestScanner extends BaseWorldScanner {
 
         WorldScanner.addToDeleteCache(plate);
     }
+
+    @Scannable
     private void processWinObjectives(World world, Block block, ConquestMap map) {
         if(block.getType() != Material.BEACON) return;
         Block glass = block.getRelative(BlockFace.UP);

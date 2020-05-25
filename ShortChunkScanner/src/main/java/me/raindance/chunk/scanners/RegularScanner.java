@@ -4,7 +4,7 @@ import com.podcrash.api.db.pojos.map.*;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 
-public class RegularScanner extends BaseWorldScanner {
+public class RegularScanner extends BaseWorldScanner<BaseMap> {
     public RegularScanner() {
         super("regular");
     }

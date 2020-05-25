@@ -5,6 +5,7 @@ import me.raindance.chunk.commands.ScanCommand;
 import me.raindance.chunk.listeners.CustomBlockListener;
 import me.raindance.chunk.listeners.FinishScanListener;
 import me.raindance.chunk.scanners.ConquestScanner;
+import me.raindance.chunk.scanners.IslandsScanner;
 import me.raindance.chunk.scanners.RegularScanner;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -28,6 +29,7 @@ public class ShortChunkScanner extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new ConquestScanner(), this);
         Bukkit.getPluginManager().registerEvents(new FinishScanListener(), this);
         Bukkit.getPluginManager().registerEvents(new CustomBlockListener(), this);
+        Bukkit.getPluginManager().registerEvents(new IslandsScanner(), this);
         getCommand("scan").setExecutor(new ScanCommand());
         getCommand("deletecache").setExecutor(new CacheDeleteCommand());
     }
