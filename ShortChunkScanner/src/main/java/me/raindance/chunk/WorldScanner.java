@@ -58,6 +58,10 @@ public final class WorldScanner {
         dataMap.put(worldName, map);
     }
 
+    /**
+     *
+     * @param blocks - MUST BE WITHIN THE SAME WORLD
+     */
     public static void addToDeleteCache(Block... blocks) {
         String name = blocks[0].getWorld().getName();
         Set<Vector> vectors = deleteCache.getOrDefault(name, new HashSet<>());
