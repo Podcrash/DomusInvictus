@@ -45,6 +45,7 @@ public class IslandsScanner extends BaseWorldScanner<IslandsMap> {
         processOres(world, block, map);
         processChests(world, block, map);
         processBridges(world, block, map);
+        processBridgeType(world, block, map);
     }
 
 
@@ -95,7 +96,7 @@ public class IslandsScanner extends BaseWorldScanner<IslandsMap> {
         worldBroadcast(world, ChatColor.GRAY + "Scanner> Loaded a middle block (for bridges) at " + point);
         map.setMiddle(point);
 
-        WorldScanner.addToDeleteCache(block,  block.getRelative(BlockFace.UP));
+        WorldScanner.addToDeleteCache(block.getRelative(BlockFace.UP), block);
 
     }
     @Scannable
@@ -134,10 +135,7 @@ public class IslandsScanner extends BaseWorldScanner<IslandsMap> {
             } else if (questionPoint.getPoint2() == null) {
                 questionPoint.setPoint2(point);
             }
-            worldBroadcast(world, tempBridgeMap.toString());
-            worldBroadcast(world, "vs");
             List<IDPoint2Point> ya = new ArrayList<>(tempBridgeMap.values());
-            worldBroadcast(world, ya.toString());
 
 
             map.setBridges(ya);
