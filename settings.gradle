@@ -20,5 +20,6 @@ include 'discord-bot'
 include 'RIOT'
 include 'Engine:PacketWrapper'
 include 'Islands'
+include 'Squad-Assault'
 findProject(':Engine:PacketWrapper')?.name = 'PacketWrapper'
 

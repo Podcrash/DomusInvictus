@@ -10,3 +10,6 @@
 [submodule "Islands"]
 	path = Islands
 	url = git@github.com:Podcrash/Islands.git
+[submodule "Squad-Assault"]
+	path = Squad-Assault
+	url = git@github.com:Podcrash/Squad-Assault.git
