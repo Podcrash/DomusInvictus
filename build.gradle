@@ -16,6 +16,9 @@ allprojects {
         maven { url "https://hub.spigotmc.org/nexus/content/repositories/releases"}
         maven { url "http://ci.nametagedit.com/plugin/repository/everything/" }
         maven { url 'https://jitpack.io' }
+        maven {
+            url "https://libraries.minecraft.net"
+        }
     }
 
 }
